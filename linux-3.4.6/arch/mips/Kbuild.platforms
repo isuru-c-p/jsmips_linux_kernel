@@ -10,6 +10,7 @@ platforms += cobalt
 platforms += dec
 platforms += emma
 platforms += jazz
+platforms += mipsjs
 platforms += jz4740
 platforms += lantiq
 platforms += lasat

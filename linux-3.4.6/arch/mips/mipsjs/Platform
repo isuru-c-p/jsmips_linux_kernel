@@ -1,0 +1,6 @@
+#
+# MIPSJS
+#
+platform-$(CONFIG_MIPSJS)	+= mipsjs/
+cflags-$(CONFIG_MIPSJS)	+= -I$(srctree)/arch/mips/include/asm/mach-mipsjs
+load-$(CONFIG_MIPSJS)		+= 0x80100000
