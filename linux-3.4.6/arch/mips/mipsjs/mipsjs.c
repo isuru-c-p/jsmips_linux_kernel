@@ -1,6 +1,5 @@
 #include <linux/init.h>
-
-
+#include <asm/bootinfo.h>
 
 
 void __init plat_time_init(void)
@@ -29,6 +28,9 @@ const char *get_system_type(void)
 
 void __init plat_mem_setup(void)
 {
+
+    add_memory_region(0x00000000, 0x00001000, BOOT_MEM_RESERVED);
+    add_memory_region(0x00001000, 0x800000 /* 8 megs */, BOOT_MEM_RAM); //TODO ? alignment?
 
 }
 
