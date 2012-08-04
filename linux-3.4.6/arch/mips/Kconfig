@@ -324,6 +324,11 @@ config MIPSJS
 	select SYS_HAS_EARLY_PRINTK
 	select SYS_SUPPORTS_32BIT_KERNEL
 	select SYS_SUPPORTS_BIG_ENDIAN
+	select IRQ_CPU
+    select BOOT_RAW
+	select SERIAL_8250
+	select SERIAL_8250_CONSOLE
+    select CEVT_R4K
 	help
 	  This option enables support for MIPS Technologies MIPSsim software
 	  emulator.
