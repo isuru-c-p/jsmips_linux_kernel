@@ -174,3 +174,9 @@ void __init prom_free_prom_memory(void){
 
 }
 
+unsigned long __cpuinit calibrate_delay_is_known(void)
+{
+    // hacked in a number to allow boot process to continue without interrupts
+	return 1000;
+}
+
