@@ -134,7 +134,7 @@ void __init plat_mem_setup(void)
 	struct uart_port s;
 
     add_memory_region(0x00000000, 0x00001000, BOOT_MEM_RESERVED);
-    add_memory_region(0x00001000, 0x800000 /* 8 megs */, BOOT_MEM_RAM); //TODO ? alignment?
+    add_memory_region(0x00001000, 0x1000000 /* 16 megs */, BOOT_MEM_RAM); //TODO ? alignment?
 
     set_io_port_base(0xbfd00000);
 
@@ -171,12 +171,12 @@ void __init prom_init(void){
 
 
 void __init prom_free_prom_memory(void){
-
+    //free_init_pages("prom memory", 0x00001000, 0x1000000);
 }
 
 unsigned long __cpuinit calibrate_delay_is_known(void)
 {
     // hacked in a number to allow boot process to continue without interrupts
-	return 1000;
+	return 0;
 }
 
