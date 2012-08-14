@@ -1,15 +1,20 @@
-#include <linux/init.h>
 #include <asm/bootinfo.h>
-
-#include <linux/sched.h>
+#include <asm/irq_cpu.h>
+#include <asm/mips-boards/prom.h>
+#include <asm/mips-boards/simint.h>
+#include <asm/page.h>
+#include <asm/sections.h>
+#include <asm/time.h>
+#include <linux/bootmem.h>
+#include <linux/init.h>
 #include <linux/interrupt.h>
 #include <linux/kernel_stat.h>
-#include <asm/mips-boards/simint.h>
-#include <asm/irq_cpu.h>
-
-#include <linux/serial_8250.h>
+#include <linux/mm.h>
+#include <linux/pfn.h>
 #include <linux/platform_device.h>
-#include <asm/time.h>
+#include <linux/sched.h>
+#include <linux/serial_8250.h>
+#include <linux/string.h>
 
 #define MIPS_CPU_IRQ_BASE 0
 
@@ -132,9 +137,9 @@ const char *get_system_type(void)
 void __init plat_mem_setup(void)
 {
 	struct uart_port s;
-
-    add_memory_region(0x00000000, 0x00001000, BOOT_MEM_RESERVED);
-    add_memory_region(0x00001000, 0x1000000 /* 16 megs */, BOOT_MEM_RAM); //TODO ? alignment?
+	unsigned int kend = CPHYSADDR(PFN_ALIGN((unsigned long)&_end));
+    add_memory_region(0, kend, BOOT_MEM_RESERVED);
+    add_memory_region(kend, 0x10000000 /* 16 megs */, BOOT_MEM_RAM); //TODO ? alignment?
 
     set_io_port_base(0xbfd00000);
 

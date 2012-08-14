@@ -17,7 +17,7 @@ void dbgPrint(char * s){
 
 
 
-void __init prom_putchar(char c)
+void prom_putchar(char c)
 {
     char s[2];
     s[0] = c;
