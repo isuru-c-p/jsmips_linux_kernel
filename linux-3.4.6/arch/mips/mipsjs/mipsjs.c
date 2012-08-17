@@ -30,7 +30,7 @@
 
 #define CBUS_UART_FLAGS (UPF_BOOT_AUTOCONF | UPF_SKIP_TEST | UPF_IOREMAP)
 
-/*static struct plat_serial8250_port uart8250_data[] = {
+static struct plat_serial8250_port uart8250_data[] = {
 	SMC_PORT(0x3F8, 4),
 	SMC_PORT(0x2F8, 3),
 	{
@@ -66,7 +66,7 @@ static int __init mipsjs_add_devices(void)
     err = platform_add_devices(mipsjs_devices, ARRAY_SIZE(mipsjs_devices));
     
     return err;
-}*/
+}
 
 unsigned __cpuinit get_c0_compare_int(void)
 {
@@ -141,12 +141,11 @@ void __init plat_mem_setup(void)
     add_memory_region(0, kend, BOOT_MEM_RESERVED);
     add_memory_region(kend, 0x10000000 /* 16 megs */, BOOT_MEM_RAM); //TODO ? alignment?
 
-    set_io_port_base(0xbfd00000);
 
 
 	memset(&s, 0, sizeof(s));
 
-	s.iobase = 0x3f8;
+	s.iobase = 0x1f000900;
 
 	/* hardware int 4 - the serial int, is CPU int 6
 	 but poll for now */
@@ -170,8 +169,7 @@ void __init plat_mem_setup(void)
 
 
 void __init prom_init(void){
-
-
+    set_io_port_base(0x0);
 }
 
 
@@ -184,4 +182,6 @@ unsigned long __cpuinit calibrate_delay_is_known(void)
     // hacked in a number to allow boot process to continue without interrupts
 	return 0;
 }
+
+device_initcall(mipsjs_add_devices);
 
